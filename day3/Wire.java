@@ -144,4 +144,65 @@ public class Wire {
 
         return true;
     }
+    
+    public int traceCoordinate(String[] strWire, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY) {
+        nXnow = nOffsetX;
+        nYnow = nOffsetY;
+        int nSteps = 0;
+        int nDistance = 0;
+        for (int i = 0; i < strWire.length; i++) {
+//                System.out.println(strWire1[i]);
+//                System.out.println("Map point: [" + nXnow + "][" + nYnow + "]");
+        try {
+            nDistance = Integer.parseInt(strWire[i].substring(1));
+        } catch (NumberFormatException e) {
+            System.out.println("Caught NumberFormatException");
+            return -1;
+        }
+            if (strWire[i].startsWith("R")) {
+                // x increasing
+                for (int j = 0; j < nDistance; j++) {
+                    nXnow++;
+                    nSteps++;
+                    if (nXnow == nTargetX && nYnow == nTargetY) {
+                        j = nDistance;
+                        i = strWire.length;
+                    }
+                }
+            } else if (strWire[i].startsWith("L")) {
+                // x decreasing
+                for (int j = 0; j < nDistance; j++) {
+                    nXnow--;
+                    nSteps++;
+                    if (nXnow == nTargetX && nYnow == nTargetY) {
+                        j = nDistance;
+                        i = strWire.length;
+                    }
+                }
+            } else if (strWire[i].startsWith("U")) {
+                // y increasing
+                for (int j = 0; j < nDistance; j++) {
+                    nYnow++;
+                    nSteps++;
+                    if (nXnow == nTargetX && nYnow == nTargetY) {
+                        j = nDistance;
+                        i = strWire.length;
+                    }
+                }
+            } else if (strWire[i].startsWith("D")) {
+                // y decreasing
+                for (int j = 0; j < nDistance; j++) {
+                    nYnow--;
+                    nSteps++;
+                    if (nXnow == nTargetX && nYnow == nTargetY) {
+                        j = nDistance;
+                        i = strWire.length;
+                    }
+                }
+            } 
+        }
+//            System.out.println("Map ends: [" + nXnow + "][" + nYnow + "]");
+        return nSteps;
+    }
+
 }
