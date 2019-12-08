@@ -1,7 +1,10 @@
 import java.io.*;
+import java.util.Scanner;
+import java.util.NoSuchElementException;
 
 public class MyClass {
     public static void main(String args[]) {
+		Scanner scanner = new Scanner(System.in);
         String strTest1 = "1002,4,3,4,33";
         String strTest2 = "3,0,4,0,99";
         String strTest3 = "1101,100,-1,4,0";
@@ -96,6 +99,21 @@ public class MyClass {
                         System.out.println("Input");
                         // For now Hardcode input "1" until we find out how to perfom user input in the IDE console...
                         nProgValues[nProgValues[i+1]] = 5;
+                        String strTxt = "";
+                		try {
+                    		System.out.println("Input a number....");
+                    		strTxt = scanner.nextLine();
+                    		System.out.println("You have typed...");
+                    		System.out.println(strTxt);
+                		} catch (NoSuchElementException e) {
+                		    System.out.println("Type something in the Stdin box above....");
+                		}
+		                try {
+                            nProgValues[nProgValues[i+1]] = Integer.parseInt(strTxt);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Caught NumberFormatException...default to input 5");
+                            nProgValues[nProgValues[i+1]] = 5;    
+                        }
                         i += 2;
                         break;
                     case 4:
